@@ -1,6 +1,6 @@
 package trader;
 
-import order.Order;
+import order.DefaultStockOrder;
 import order.OrderBuilder;
 import stock.Stock;
 
@@ -20,7 +20,7 @@ public abstract class Trader {
 	
 	public abstract void poll(Stock s);
 	
-	public abstract void buy(Order o);
+	public abstract void buy(DefaultStockOrder o);
 	
-	public abstract void sell(Order o);
+	public abstract void sell(DefaultStockOrder o);
 }

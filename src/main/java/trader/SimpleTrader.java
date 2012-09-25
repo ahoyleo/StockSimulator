@@ -1,18 +1,18 @@
 package trader;
 
-import order.Order;
+import order.DefaultStockOrder;
 import stock.Stock;
 
 public class SimpleTrader extends Trader {
 
 	@Override
-	public void buy(Order o) {
+	public void buy(DefaultStockOrder o) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void sell(Order o) {
+	public void sell(DefaultStockOrder o) {
 		// TODO Auto-generated method stub
 		
 	}

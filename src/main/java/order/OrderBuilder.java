@@ -1,9 +1,9 @@
 package order;
 
 public abstract class OrderBuilder {
-	protected Order order;
+	protected DefaultStockOrder order;
 
-	public Order getOrder() {
+	public DefaultStockOrder getOrder() {
 		return order;
 	}
 	

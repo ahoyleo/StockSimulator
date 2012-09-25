@@ -3,15 +3,15 @@ package exchange;
 import java.util.Map;
 import java.util.PriorityQueue;
 
-import order.Order;
+import order.DefaultStockOrder;
 import stock.Ticker;
 
 public class Exchange {
 	protected String name;
 //	protected Set <Stock> stocks;
-	protected PriorityQueue <Order> bidQueue = new PriorityQueue <Order> ();
-	protected PriorityQueue <Order> askQueue = new PriorityQueue <Order> ();
-	protected PriorityQueue <Order> marketOrderQueue = new PriorityQueue <Order> ();
+	protected PriorityQueue <DefaultStockOrder> bidQueue = new PriorityQueue <DefaultStockOrder> ();
+	protected PriorityQueue <DefaultStockOrder> askQueue = new PriorityQueue <DefaultStockOrder> ();
+	protected PriorityQueue <DefaultStockOrder> marketOrderQueue = new PriorityQueue <DefaultStockOrder> ();
 	
 	Exchange(String name) {
 		this.name = name;
@@ -34,8 +34,8 @@ public class Exchange {
 	}
 	
 	protected void executeOrdersAtomic() {
-		Order highestBid = bidQueue.peek();
-		Order lowestAsk = askQueue.peek();
+		DefaultStockOrder highestBid = bidQueue.peek();
+		DefaultStockOrder lowestAsk = askQueue.peek();
 		if (highestBid.getPrice() >= lowestAsk.getPrice()) {
 			int bidQuantity = highestBid.getQuantity();
 			int askQuantity = lowestAsk.getQuantity();
