@@ -1,22 +1,38 @@
 package order;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class StockOrderFactory
 {
-  protected Map <StockOrderSpec, DefaultStockOrder> orders = new HashMap <StockOrderSpec, DefaultStockOrder> ();
-  
-  public DefaultStockOrder getDefaultStockOrder(StockOrderSpec spec)
-  {
-    DefaultStockOrder order = orders.get(spec);
-    if (order == null)
-    {
-      order = new DefaultStockOrder(spec);
-      orders.put(spec, order);
-    }
-    return order;
-  }
-  
-  
+//	protected Map <OrderAction, Map <OrderType, Map <OrderCondition, Map <OrderTimeLimit, StockOrderSpec>>>> specs 
+//	= new HashMap <OrderAction, Map <OrderType, Map <OrderCondition, Map <OrderTimeLimit, StockOrderSpec>>>> ();
+
+
+	protected Map <StockOrderSpec, StockOrderSpec> specs = new HashMap <StockOrderSpec, StockOrderSpec> ();
+	public StockOrderSpec getDefaultStockOrder(OrderCondition condition,
+			OrderTimeLimit timeLimit,
+			OrderAction action,
+			OrderType type)
+	{
+//		if (specs.containsKey(action))
+//		{
+//			if(specs.get(action).containsKey(type))
+//				if(specs.get(action).get(type).containsKey(condition))
+//					if(specs.get(action).get(type).get(condition).containsKey(timeLimit))
+//						return specs.get(action).get(type).get(condition).get(timeLimit);
+//		}
+//		return new StockOrderSpec(condition, timeLimit, action, type);
+		StockOrderSpec spec = new StockOrderSpec(condition, timeLimit, action, type);
+		if (!specs.containsKey(spec))
+			specs.put(spec, spec);
+		return specs.get(spec);
+	}
+
+	public int getTotalCachedStockOrderSpecs()
+	{
+		return specs.size();
+	}
 }
