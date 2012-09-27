@@ -1,0 +1,17 @@
+#!/bin/bash
+
+GoogleUrl="http://www.google.com/finance/historical?q=placeholder&output=csv"
+
+for fullfile in ../tickers/*.csv
+do
+  file=$(basename "$fullfile")
+  exchange="${file%.*}"
+  fulloutput="../tickers/$exchange.url"
+  rm -f "$fulloutput"
+  for ticker in $`tail $fullfile -n +2 | cut -d\" -f2`
+  do
+    echo ${GoogleUrl/placeholder/"$exchange:$ticker"} >> "$fulloutput"
+  done
+done
+
+#find . -name '*.csv' | xargs -I {} tail -n +2 {} | cut -d\" -f2 | xargs -I x echo ${GoogleUrl/ticker/x} > google.url \;
