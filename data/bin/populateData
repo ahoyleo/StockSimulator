@@ -1,0 +1,27 @@
+#!/bin/bash
+DIR=../historical
+SQL_INSERT="INSERT INTO \`quotes\` VALUES ('_Exchange_','_Ticker_','_Date_',_Quote_);"
+echo $SQL_INSERT
+for path in $(find "$DIR" -type f)
+do
+    ticker=$(basename "$path")
+    exchange=$(basename $(dirname "$path"))
+    for line in $(cat "$path")
+    do
+        if [[ ! "$line" == *Date* ]] ; #skip header line
+        then
+          date=$(expr match "$line" '\([0-9]\+-[a-zA-Z]\+-[0-9]\+\),.*')  #dd-MMM-yy (%m-%b-%y)
+          date=$(date -d "$date" +%Y-%m-%d)
+          quote=$(expr match "$line" '[0-9]\+-[a-zA-Z]\+-[0-9]\+,\(.*\)')
+          #echo $date;
+          #echo $quote;
+          stmt=$SQL_INSERT
+          stmt=${stmt/_Exchange_/$exchange}
+          stmt=${stmt/_Ticker_/$ticker}
+          stmt=${stmt/_Date_/$date}
+          stmt=${stmt/_Quote_/$quote}
+          #echo $stmt
+          echo $stmt >> quotes.sql
+        fi
+    done
+done

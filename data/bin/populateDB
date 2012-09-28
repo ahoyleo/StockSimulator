@@ -1,0 +1,19 @@
+#!/bin/bash
+
+MYSQL_USER='stock'
+MYSQL_PASS='stock'
+MYSQL_DB='stock'
+
+mysql -u$MYSQL_USER -p$MYSQL_PASS -D$MYSQL_DB << EOF
+DROP TABLE IF EXISTS quotes;
+CREATE TABLE quotes (
+  exchange varchar(10),
+  ticker varchar(10),
+  date DATE,
+  open double,
+  high double,
+  low double,
+  close double,
+  volume int(12)
+) ENGINE=innodb;
+EOF

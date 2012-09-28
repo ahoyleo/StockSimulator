@@ -1,0 +1,12 @@
+#!/bin/bash
+DIR=../historical
+for file in $(ls -l "$DIR" | grep -v ^d | awk '{print $9}')
+do
+    exchange=`expr "$file" : '.*\(nyse\|nasdaq\|amex\)'`
+    ticker=`expr "$file" : '.*:\(.*\)&'`
+    if [ ! -d "$exchange" ]; 
+    then
+        mkdir "$exchange"
+    fi
+    mv "$DIR/$file" "$DIR/$exchange/$ticker"
+done
