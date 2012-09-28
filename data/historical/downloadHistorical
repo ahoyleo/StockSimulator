@@ -1,6 +1,0 @@
-#!/bin/bash
-for url in $(head ../tickers/nasdaq.url)
-do
-  
-done
-head ../tickers/nasdaq.url | xargs -P16 wget -c
